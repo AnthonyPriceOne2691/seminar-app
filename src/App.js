@@ -4,13 +4,17 @@ import SeminarList from "./components/SeminarList";
 import EditModal from "./components/EditModal";
 
 const App = () => {
+  // Состояние списка семинаров
   const [seminars, setSeminars] = useState([]);
+  // Состояние выбранного семинара
   const [selectedSeminar, setSelectedSeminar] = useState(null);
 
+  // Хук useEffect для загрузки списка семинаров
   useEffect(() => {
     fetchSeminars();
   }, []);
 
+  // Функция для загрузки списка семинаров
   const fetchSeminars = async () => {
     try {
       const response = await axios.get("http://localhost:5000/seminars");
@@ -20,6 +24,7 @@ const App = () => {
     }
   };
 
+  // Функция для удаления семинара
   const deleteSeminar = async (id) => {
     if (window.confirm("Вы уверены, что хотите удалить семинар?")) {
       try {
@@ -31,14 +36,17 @@ const App = () => {
     }
   };
 
+  // Функция для открытия модального окна редактирования
   const openEditModal = (seminar) => {
     setSelectedSeminar(seminar);
   };
 
+  // Функция для закрытия модального окна редактирования
   const closeEditModal = () => {
     setSelectedSeminar(null);
   };
 
+  // Функция для обновления семинара
   const updateSeminar = async (updatedSeminar) => {
     try {
       await axios.put(
